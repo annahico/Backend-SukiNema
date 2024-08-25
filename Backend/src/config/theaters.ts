@@ -1,9 +1,9 @@
 // Horarios comunes
 const commonTimes = [
-  '3:00 PM',
-  '5:30 PM',
-  '8:00 PM',
-  '11:30 PM',
+  '15:00 PM',
+  '17:30 PM',
+  '20:00 PM',
+  '23:30 PM',
 ];
 
 // Crear el arreglo de salas
