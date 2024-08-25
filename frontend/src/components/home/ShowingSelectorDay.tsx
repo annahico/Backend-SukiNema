@@ -1,9 +1,10 @@
+import React from "react";
 interface Props {
-  id: number
-  active: boolean
-  handleClick: (id: number, date: string) => void
-  name: string
-  date: string
+  id: number;
+  active: boolean;
+  handleClick: (id: number, date: string) => void;
+  name: string;
+  date: string;
 }
 
 function ShowingSelectorDay(props: Props) {
@@ -14,7 +15,7 @@ function ShowingSelectorDay(props: Props) {
     >
       {props.name}
     </div>
-  )
+  );
 }
 
-export default ShowingSelectorDay
+export default ShowingSelectorDay;

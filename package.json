@@ -4,7 +4,8 @@
     "react": "^18.3.1",
     "react-lite-youtube-embed": "^2.4.0",
     "react-router-dom": "^6.26.1",
-    "react-svg": "^16.1.34"
+    "react-svg": "^16.1.34",
+    "swiper": "^11.1.10"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

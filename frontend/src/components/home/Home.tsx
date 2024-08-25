@@ -1,31 +1,33 @@
-import { useState, useEffect } from 'react'
-import Header from './Header'
-import Showings from './Showings'
-import { IMovie } from '../../types'
-import './HomeStyles.css'
-import { buildURL } from '../../utils'
+import React, { useEffect, useState } from "react";
+import { IMovie } from "../../types";
+import { buildURL } from "../../utils";
+import Header from "./Header";
+import "./HomeStyles.css";
+import Showings from "./Showings";
 
 function Home() {
-  const [movies, setMovies] = useState<IMovie[]>([])
+  const [movies, setMovies] = useState<IMovie[]>([]);
 
   useEffect(() => {
-    fetchMovies()
-  }, [])
+    fetchMovies();
+  }, []);
 
   async function fetchMovies() {
-    const res = await fetch(buildURL('/api/movie/all'))
-    const data: IMovie[] = await res.json()
-    setMovies(data)
+    const res = await fetch(buildURL("/api/movie/all"));
+    const data: IMovie[] = await res.json();
+    setMovies(data);
   }
 
   return (
     <div className="Home">
-      {movies.length > 0 && <>
-        <Header movies={movies} />
-        <Showings />
-      </>}
+      {movies.length > 0 && (
+        <>
+          <Header movies={movies} />
+          <Showings />
+        </>
+      )}
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
