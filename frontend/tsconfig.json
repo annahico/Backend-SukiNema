@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "commonjs",
-    "jsx": "react", // Use "react-jsx" for React 17+
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  }
-}
