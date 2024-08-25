@@ -1,15 +1,22 @@
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional, ForeignKey } from 'sequelize'
-import sequelize from '../utils/connectDB.js'
-import Order from './Order.js'
+import {
+  CreationOptional,
+  DataTypes,
+  ForeignKey,
+  InferAttributes,
+  InferCreationAttributes,
+  Model
+} from 'sequelize';
+import sequelize from '../utils/connectDB.js';
+import Order from './Order.js';
 
 class TicketHistory extends Model<InferAttributes<TicketHistory>, InferCreationAttributes<TicketHistory>> {
-  declare id: CreationOptional<number>
-  declare name: string
-  declare time: string
-  declare poster: string
-  declare room: string
-  declare seat: string
-  declare orderId: ForeignKey<Order['id']>
+  declare id: CreationOptional<number>;
+  declare name: string;
+  declare time: string;
+  declare poster: string;
+  declare room: string;
+  declare seat: string;
+  declare orderId: ForeignKey<Order['id']>;
 }
 
 // TicketHistory persists all of the related ticket data after checkout because
@@ -40,9 +47,17 @@ TicketHistory.init({
     type: DataTypes.STRING,
     allowNull: false
   },
+  orderId: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+    references: {
+      model: Order,
+      key: 'id'
+    }
+  }
 }, {
   sequelize,
   timestamps: false
-})
+});
 
-export default TicketHistory
+export default TicketHistory;

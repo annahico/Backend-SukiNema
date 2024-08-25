@@ -1,11 +1,18 @@
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes, ForeignKey } from 'sequelize'
-import sequelize from '../utils/connectDB.js'
-import Showing from './Showing.js'
+import {
+  CreationOptional,
+  DataTypes,
+  ForeignKey,
+  InferAttributes,
+  InferCreationAttributes,
+  Model
+} from 'sequelize';
+import sequelize from '../utils/connectDB.js';
+import Showing from './Showing.js';
 
 class Ticket extends Model<InferAttributes<Ticket>, InferCreationAttributes<Ticket>> {
-  declare id: CreationOptional<number>
-  declare seat: string
-  declare showingId: ForeignKey<Showing['id']>
+  declare id: CreationOptional<number>;
+  declare seat: string;
+  declare showingId: ForeignKey<Showing['id']>;
 }
 
 Ticket.init({
@@ -16,10 +23,15 @@ Ticket.init({
   },
   seat: {
     type: DataTypes.STRING,
+    allowNull: false
+  },
+  showingId: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false
   }
 }, {
   sequelize,
   timestamps: false
-})
+});
 
-export default Ticket
+export default Ticket;

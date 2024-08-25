@@ -1,41 +1,45 @@
 import {
   CreationOptional,
-  DataTypes, HasManyAddAssociationMixin,
+  DataTypes,
+  HasManyAddAssociationMixin,
   HasManyAddAssociationsMixin,
   HasManyCountAssociationsMixin,
-  HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
   HasManyHasAssociationsMixin,
-  HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
   InferAttributes,
   InferCreationAttributes,
   Model
-} from 'sequelize'
-import sequelize from '../utils/connectDB.js'
-import Showing from './Showing.js'
+} from 'sequelize';
+import sequelize from '../utils/connectDB.js';
+import Showing from './Showing.js';
 
 class Movie extends Model<InferAttributes<Movie>, InferCreationAttributes<Movie>> {
-  declare id: CreationOptional<number>
-  declare favorite: boolean | null
-  declare apiID: number
-  declare title: string
-  declare overview: string
-  declare release: string
-  declare trailer: string | null
-  declare backdrop: string | null
-  declare poster: string | null
+  declare id: CreationOptional<number>;
+  declare favorite: boolean | null;
+  declare apiID: number;
+  declare title: string;
+  declare overview: string;
+  declare release: string;
+  declare trailer: string | null;
+  declare backdrop: string | null;
+  declare poster: string | null;
 
   // Association methods
-  declare getShowings: HasManyGetAssociationsMixin<Showing>
-  declare addShowing: HasManyAddAssociationMixin<Showing, number>
-  declare addShowings: HasManyAddAssociationsMixin<Showing, number>
-  declare setShowings: HasManySetAssociationsMixin<Showing, number>
-  declare removeShowing: HasManyRemoveAssociationMixin<Showing, number>
-  declare removeShowings: HasManyRemoveAssociationsMixin<Showing, number>
-  declare hasShowing: HasManyHasAssociationMixin<Showing, number>
-  declare hasShowings: HasManyHasAssociationsMixin<Showing, number>
-  declare countShowings: HasManyCountAssociationsMixin
-  declare createShowing: HasManyCreateAssociationMixin<Showing, 'movieId'>
+  declare getShowings: HasManyGetAssociationsMixin<Showing>;
+  declare addShowing: HasManyAddAssociationMixin<Showing, number>;
+  declare addShowings: HasManyAddAssociationsMixin<Showing, number>;
+  declare setShowings: HasManySetAssociationsMixin<Showing, number>;
+  declare removeShowing: HasManyRemoveAssociationMixin<Showing, number>;
+  declare removeShowings: HasManyRemoveAssociationsMixin<Showing, number>;
+  declare hasShowing: HasManyHasAssociationMixin<Showing, number>;
+  declare hasShowings: HasManyHasAssociationsMixin<Showing, number>;
+  declare countShowings: HasManyCountAssociationsMixin;
+  declare createShowing: HasManyCreateAssociationMixin<Showing, 'movieId'>;
 }
 
 Movie.init({
@@ -70,18 +74,18 @@ Movie.init({
   },
   backdrop: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true
   },
   poster: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true
   }
 }, {
   sequelize,
   timestamps: false
-})
+});
 
-Movie.hasMany(Showing, { foreignKey: 'movieId' })
-Showing.belongsTo(Movie, { foreignKey: 'movieId' })
+Movie.hasMany(Showing, { foreignKey: 'movieId' });
+Showing.belongsTo(Movie, { foreignKey: 'movieId' });
 
-export default Movie
+export default Movie;

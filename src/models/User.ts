@@ -1,31 +1,41 @@
 import {
-  Association, DataTypes, HasManyAddAssociationMixin, HasManyCountAssociationsMixin,
-  HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin,
-  HasManySetAssociationsMixin, HasManyAddAssociationsMixin, HasManyHasAssociationsMixin,
-  HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin, Model, InferAttributes,
-  InferCreationAttributes, CreationOptional
-} from 'sequelize'
-import sequelize from '../utils/connectDB.js'
-import Order from './Order.js'
+  CreationOptional,
+  DataTypes,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
+  InferAttributes,
+  InferCreationAttributes,
+  Model
+} from 'sequelize';
+import sequelize from '../utils/connectDB.js';
+import Order from './Order.js';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare id: CreationOptional<number>
-  declare email: string
-  declare firstname: string
-  declare lastname: string
-  declare password: string
+  declare id: CreationOptional<number>;
+  declare email: string;
+  declare firstname: string;
+  declare lastname: string;
+  declare password: string;
 
   // Association methods
-  declare getOrders: HasManyGetAssociationsMixin<Order>
-  declare addOrder: HasManyAddAssociationMixin<Order, number>
-  declare addOrders: HasManyAddAssociationsMixin<Order, number>
-  declare setOrders: HasManySetAssociationsMixin<Order, number>
-  declare removeOrder: HasManyRemoveAssociationMixin<Order, number>
-  declare removeOrders: HasManyRemoveAssociationsMixin<Order, number>
-  declare hasOrder: HasManyHasAssociationMixin<Order, number>
-  declare hasOrders: HasManyHasAssociationsMixin<Order, number>
-  declare countOrders: HasManyCountAssociationsMixin
-  declare createOrder: HasManyCreateAssociationMixin<Order, 'userId'>
+  declare getOrders: HasManyGetAssociationsMixin<Order>;
+  declare addOrder: HasManyAddAssociationMixin<Order, number>;
+  declare addOrders: HasManyAddAssociationsMixin<Order, number>;
+  declare setOrders: HasManySetAssociationsMixin<Order, number>;
+  declare removeOrder: HasManyRemoveAssociationMixin<Order, number>;
+  declare removeOrders: HasManyRemoveAssociationsMixin<Order, number>;
+  declare hasOrder: HasManyHasAssociationMixin<Order, number>;
+  declare hasOrders: HasManyHasAssociationsMixin<Order, number>;
+  declare countOrders: HasManyCountAssociationsMixin;
+  declare createOrder: HasManyCreateAssociationMixin<Order, 'userId'>;
 }
 
 User.init({
@@ -53,9 +63,9 @@ User.init({
 }, {
   sequelize,
   timestamps: false
-})
+});
 
-User.hasMany(Order, { foreignKey: 'userId' })
-Order.belongsTo(User, { foreignKey: 'userId' })
+User.hasMany(Order, { foreignKey: 'userId' });
+Order.belongsTo(User, { foreignKey: 'userId' });
 
-export default User
+export default User;

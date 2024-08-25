@@ -5,34 +5,37 @@ import {
   HasManyAddAssociationMixin,
   HasManyAddAssociationsMixin,
   HasManyCountAssociationsMixin,
-  HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
   HasManyHasAssociationsMixin,
-  HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
   InferAttributes,
   InferCreationAttributes,
   Model
-} from 'sequelize'
-import sequelize from '../utils/connectDB.js'
-import TicketHistory from './TicketHistory.js'
-import User from './User.js'
+} from 'sequelize';
+import sequelize from '../utils/connectDB.js';
+import TicketHistory from './TicketHistory.js';
+import User from './User.js';
 
 class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
-  declare id: CreationOptional<number>
-  declare date: string
-  declare userId: ForeignKey<User['id']>
+  declare id: CreationOptional<number>;
+  declare date: string;
+  declare userId: ForeignKey<User['id']>;
 
   // Association methods
-  declare getTicketHistories: HasManyGetAssociationsMixin<TicketHistory>
-  declare addTicketHistory: HasManyAddAssociationMixin<TicketHistory, number>
-  declare addTicketHistories: HasManyAddAssociationsMixin<TicketHistory, number>
-  declare setTicketHistories: HasManySetAssociationsMixin<TicketHistory, number>
-  declare removeTicketHistory: HasManyRemoveAssociationMixin<TicketHistory, number>
-  declare removeTicketHistories: HasManyRemoveAssociationsMixin<TicketHistory, number>
-  declare hasTicketHistory: HasManyHasAssociationMixin<TicketHistory, number>
-  declare hasTicketHistories: HasManyHasAssociationsMixin<TicketHistory, number>
-  declare countTicketHistories: HasManyCountAssociationsMixin
-  declare createTicketHistory: HasManyCreateAssociationMixin<TicketHistory, 'orderId'>
+  declare getTicketHistories: HasManyGetAssociationsMixin<TicketHistory>;
+  declare addTicketHistory: HasManyAddAssociationMixin<TicketHistory, number>;
+  declare addTicketHistories: HasManyAddAssociationsMixin<TicketHistory, number>;
+  declare setTicketHistories: HasManySetAssociationsMixin<TicketHistory, number>;
+  declare removeTicketHistory: HasManyRemoveAssociationMixin<TicketHistory, number>;
+  declare removeTicketHistories: HasManyRemoveAssociationsMixin<TicketHistory, number>;
+  declare hasTicketHistory: HasManyHasAssociationMixin<TicketHistory, number>;
+  declare hasTicketHistories: HasManyHasAssociationsMixin<TicketHistory, number>;
+  declare countTicketHistories: HasManyCountAssociationsMixin;
+  declare createTicketHistory: HasManyCreateAssociationMixin<TicketHistory, 'orderId'>;
 }
 
 Order.init({
@@ -44,13 +47,18 @@ Order.init({
   date: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  userId: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false
   }
 }, {
   sequelize,
   timestamps: false
-})
+});
 
-Order.hasMany(TicketHistory, { foreignKey: 'orderId' })
-TicketHistory.belongsTo(Order, { foreignKey: 'orderId' })
+// Associations
+Order.hasMany(TicketHistory, { foreignKey: 'orderId' });
+TicketHistory.belongsTo(Order, { foreignKey: 'orderId' });
 
-export default Order
+export default Order;
