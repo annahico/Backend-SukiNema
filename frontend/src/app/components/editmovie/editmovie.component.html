@@ -1,0 +1,53 @@
+<div class="page" >
+  
+  <div class="form-container">
+    <h1>Editing a Movie</h1>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div>
+        <label> <span class="mandatory">*</span> Name</label><br>
+        <input class="inp-field" type="text" formControlName="name">
+      </div>
+      <span class="warning" *ngIf="form.controls['name'].touched && form.controls['name'].invalid">Name is invalid</span>
+      
+
+      <br><br>
+
+      <div>
+        <label><span class="mandatory">*</span>Released Date</label><br>
+        <input class="inp-field" type="date" formControlName="releaseddate" >
+      </div>
+      <span class="warning" *ngIf="form.controls['releaseddate'].touched && form.controls['releaseddate'].invalid">Released Date is invalid</span>
+
+      <br><br>
+
+      <div>
+        <label> <span class="mandatory">*</span>Descrption</label><br>
+        <input class="inp-field" type="text" formControlName="descrp"  >
+      </div>
+      <span class="warning" *ngIf="form.controls['descrp'].touched && form.controls['name'].invalid">Descrption is invalid</span>
+
+      <br><br>
+      
+      <div>
+        <label><span class="mandatory">*</span>Movie poster Link</label><br>
+        <input class="inp-field" type="text" formControlName="movieposter">
+      </div>
+      <span class="warning" *ngIf="form.controls['movieposter'].touched && form.controls['movieposter'].invalid">Movie poster Link is invalid</span>
+      
+      <br><br>
+
+      <a class="link" routerLink="/movies"><button class="formBtn" mat-stroked-button color="warn"   type="button" >Cancel</button></a>
+      <button class="formBtn" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+    </form>
+  </div>
+  
+</div> 
+
+
+
+
+
+
+
+

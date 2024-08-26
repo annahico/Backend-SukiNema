@@ -1,0 +1,72 @@
+<div class="heading">
+  <h1  class="heading-name">All Cinemas</h1>
+  <a *ngIf="role==1" class="addnewcinema" routerLink="/cinemas/addnewcinema"> <button mat-raised-button color="accent">Add new Cinema </button> </a>
+</div>
+
+<div  class="main">
+
+  <div class="records" *ngIf="cinemasList.length else elseBlock">
+    <table mat-table [dataSource]="cinemasList" class="mat-elevation-z8">  
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" >
+           <a class="operations" routerLink="/cinemas/details/{{element.id}}"> {{element.name}} </a> 
+        </td>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="contactnumber">
+        <th mat-header-cell *matHeaderCellDef> Contact Number </th>
+        <td mat-cell *matCellDef="let element"> {{element.contactnumber}} </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="website">
+        <th mat-header-cell *matHeaderCellDef> Website </th>
+        <td mat-cell *matCellDef="let element"> {{element.website}} </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="screens">
+        <th mat-header-cell *matHeaderCellDef> Screens </th>
+        <td mat-cell *matCellDef="let element"> {{element.screens}} </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="showsavailabilitytime">
+        <th mat-header-cell *matHeaderCellDef> Shows Availability Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.showsavailabilitytime}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="operations">
+        <th mat-header-cell *matHeaderCellDef> <span *ngIf="role==1"> Operations </span> </th>
+        <td mat-cell *matCellDef="let element">
+          <a *ngIf="role==1" class="operations" routerLink="/cinemas/editcinema/{{element.id}}"><button mat-raised-button color="primary">Edit</button> </a>
+          <button *ngIf="role==1" class="operations" mat-raised-button color="warn" (click)="onDelete(element.id)">Delete</button> 
+        </td>
+      </ng-container>
+  
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <ng-template  #elseBlock>
+    <h1>OOPS!   No Records are Found</h1>
+  </ng-template>
+  
+  
+
+</div>  
+
+
+
+
