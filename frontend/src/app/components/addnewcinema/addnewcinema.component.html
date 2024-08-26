@@ -1,0 +1,60 @@
+<div class="page" >
+    
+    <div class="form-container">
+      <h1>Adding a new-cinema</h1>
+  
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <div>
+          <label> <span class="mandatory">*</span> Name</label><br>
+          <input class="inp-field" type="text" name="name" ngModel #name="ngModel"  required>
+        </div>
+        <span class="warning" *ngIf="name.touched && name.invalid">Name is invalid</span>
+        
+        <br><br>
+  
+        <div>
+          <label> <span class="mandatory">*</span> Address</label><br>
+          <input class="inp-field" type="text" name="address" ngModel #address="ngModel" required>
+        </div>
+        <span class="warning" *ngIf="address.touched && address.invalid">Address is invalid</span>
+  
+        <br><br>
+  
+        <div>
+          <label> <span class="mandatory">*</span> contact Number</label><br>
+          <input class="inp-field" type="text" name="contactnumber" ngModel #contactnumber="ngModel" required>
+        </div>
+        <span class="warning" *ngIf="contactnumber.touched && contactnumber.invalid">contact number is invalid</span>
+        
+        <br><br>
+  
+        <div>
+          <label>Website URL</label><br>
+          <input class="inp-field" type="text" name="website" ngModel #website="ngModel">
+        </div>
+        <span class="warning" *ngIf="website.touched && website.invalid">website is invalid</span>
+
+        <br><br>
+  
+        <div>
+          <label> <span class="mandatory">*</span> Number of Screens</label><br>
+          <input class="inp-field" type="number" name="screens" ngModel #screens="ngModel" required>
+        </div>
+        <span class="warning" *ngIf="screens.touched && screens.invalid">Screens is invalid</span>
+
+        <br><br>
+  
+        <div>
+          <label> <span class="mandatory">*</span> Shows Availability time</label><br>
+          <input class="inp-field" type="text" name="showsavailabilitytime" ngModel #showsavailabilitytime="ngModel" required>
+        </div>
+        <span class="warning" *ngIf="showsavailabilitytime.touched && showsavailabilitytime.invalid">Shows Availability time is invalid</span>
+
+        <br><br>
+  
+        <a routerLink="/cinemas" class="link"> <button  mat-stroked-button color="warn"   type="button">Cancel </button> </a>
+        <button  mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+      </form>
+    </div>
+  
+    </div> 
