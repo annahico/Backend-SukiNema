@@ -1,26 +1,24 @@
-
 /* admin tables */
-
-.heading{
+.heading {
   display: flex;
   justify-content: space-between;
 }
-.heading-name{
+
+.heading-name {
   margin: 15px;
 }
-.addnewcinema{
+
+.addnewcinema {
   margin: 15px;
   text-decoration: none;
 }
 
-
-
-.main{
+.main {
   display: flex;
   justify-content: center;
 }
 
-.operations{
+.operations {
   margin-left: 4px;
   text-decoration: none;
 }

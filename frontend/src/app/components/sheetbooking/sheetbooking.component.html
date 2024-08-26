@@ -4,41 +4,26 @@
     <h2>at {{cinema.name}} ,{{cinema.address}},{{cinema.city}} </h2>
     <h3>at {{show.screeningdate}}, {{show.screeningtime}} </h3>
   </div>
-  
   <div>
     <h2>100 /- per ticket</h2>
   </div>
 </div>
-
-
-
 <br>
-
-
-
 <div class="availability">
   <span><input type="checkbox"> -> Available</span>
   <span><input type="checkbox" disabled="true"> -> Sold</span>
 </div>
-
-
-
 <div class="sheet-container">
-
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-    
     <div *ngFor="let sheetrow of sheetrows">
       <span *ngFor="let sheetcolumn of sheetcolumns">
-        <input type='checkbox'  name="checkbox{{sheetrow*12+sheetcolumn}}" #check="ngModel" ngModel (change)="onClick(check,sheetrow*12+sheetcolumn)">
+        <input type='checkbox' name="checkbox{{sheetrow*12+sheetcolumn}}" #check="ngModel" ngModel
+          (change)="onClick(check,sheetrow*12+sheetcolumn)">
       </span>
     </div>
-    
     <h1 class="eyes">All Eyes this side</h1>
-    
-    <div class="screen"> Screen  </div>
-  
+    <div class="screen"> Screen </div>
     <button *ngIf="!isDisable" mat-raised-button color="primary">Proceed to pay for {{ticketCount}} tickets </button>
-    <p *ngIf="ticketCount>5" > you can only book maximum of 5 tickets only </p>
+    <p *ngIf="ticketCount>5"> you can only book maximum of 5 tickets </p>
   </form>
-
 </div>

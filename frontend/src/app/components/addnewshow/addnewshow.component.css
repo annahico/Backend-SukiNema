@@ -1,35 +1,35 @@
-.page{
+.page {
   min-height: 80vh;
   padding: 30px;
 }
 
-.link{
+.link {
   text-decoration: none;
   margin-right: 10px;
 }
 
-.inp-field{
+.inp-field {
   height: 30px;
   width: 30%;
   min-width: 200px;
 }
 
-.inp-dropdown{
+.inp-dropdown {
   height: 35px;
   width: 30%;
   min-width: 200px;
 }
 
-.inp-multiple-times{
+.inp-multiple-times {
   width: 30%;
   min-width: 200px;
   height: 50px;
 }
 
-.mandatory{
-  color: red;
+.mandatory {
+  color: rgb(255, 0, 106);
 }
 
-.warning{
+.warning {
   color: red;
 }

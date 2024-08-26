@@ -1,22 +1,23 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(204, 16, 16);
+  background-color: rgb(255, 0, 106);
   align-items: center;
 
   position: sticky;
   top: 0%;
 }
 
-
-.logo{
+.logo {
   margin-top: 12px;
   margin-left: 20px;
 }
+
 .logo>a>h1 {
   color: black;
   transition: .6s;
 }
+
 .logo>a>h1:hover {
   color: white;
   transition: .6s;
@@ -25,9 +26,6 @@
 .logo>a {
   text-decoration: none;
 }
-
-
-
 
 .menu {
   display: flex;

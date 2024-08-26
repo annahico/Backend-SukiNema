@@ -1,9 +1,9 @@
-.btn-container{
+.btn-container {
     display: flex;
     justify-content: space-between;
     padding: 0px 15px;
 }
 
-.page{
+.page {
     padding: 6px;
 }

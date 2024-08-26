@@ -1,27 +1,27 @@
-.page{
+.page {
     min-height: 80vh;
     padding: 30px;
 }
 
-.link{
+.link {
     text-decoration: none;
     margin-right: 10px;
 }
 
-.inp-field{
+.inp-field {
     height: 30px;
     width: 30%;
     min-width: 200px;
 }
-  
-.mandatory{
+
+.mandatory {
+    color: rgb(255, 0, 106);
+}
+
+.warning {
     color: red;
 }
 
-.warning{
-    color: red;
-}
-
-.formBtn{
+.formBtn {
     margin: 3px;
 }

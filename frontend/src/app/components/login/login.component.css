@@ -1,11 +1,11 @@
-.page{
+.page {
   min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.formContainer{
+.formContainer {
   width: fit-content;
   height: fit-content;
   border: 1px solid black;
@@ -13,26 +13,26 @@
   border-radius: 10px;
 }
 
-.logo{
+.logo {
   display: flex;
   justify-content: center;
 }
 
-.star{
-  color: red;
+.star {
+  color: rgb(255, 0, 106);
 }
 
-.warning{
+.warning {
   color: red;
   font-weight: bolder;
 }
 
-.submitBtn{
+.submitBtn {
   width: 100%;
   min-width: 200px;
 }
 
-.inp-field{
+.inp-field {
   height: 30px;
   width: 30%;
   min-width: 200px;
