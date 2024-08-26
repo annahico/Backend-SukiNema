@@ -1,26 +1,29 @@
+
+
+  
 /* admin tables */
-.heading {
-  display: flex;
-  justify-content: space-between;
-}
 
-.heading-name {
-  margin: 15px;
-}
+.heading{
+    display: flex;
+    justify-content: space-between;
+  }
+  .heading-name{
+    margin: 15px;
+  }
 
-.main {
-  display: flex;
-  justify-content: center;
-}
+  
+  
+  .main{
+    display: flex;
+    justify-content: center;
+  }
+  .records{
+    width: 70%;
+  }
+  .operations{
+    margin-left: 4px;
+  }
 
-.records {
-  width: 70%;
-}
-
-.operations {
-  margin-left: 4px;
-}
-
-.usernameLink {
-  text-decoration: none;
-}
+  .usernameLink{
+    text-decoration: none;
+  }

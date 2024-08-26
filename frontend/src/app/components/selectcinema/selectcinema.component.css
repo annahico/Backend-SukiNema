@@ -1,13 +1,12 @@
-.page {
-  min-height: 100vh;
+.page{
+  min-height:100vh;
   padding: 15px;
-  background-color: rgb(188, 143, 174);
+  background-color: darkseagreen;
 }
-
-.showstable {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.showstable{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   margin-top: 10px;
   border: 1px solid black;
   width: 50%;
@@ -15,31 +14,30 @@
   padding: 10px;
 }
 
-.cinema {
+.cinema{
   height: 120px;
   width: 190px;
   text-align: center;
-  background-color: rgb(255, 0, 170);
+  background-color: darkorange;
   border-radius: 8px;
   padding: 4px 0px;
   color: black;
 }
 
-.book-button {
-  color: white;
-  text-decoration: none;
-  font-size: larger;
-  background-color: black;
+.book-button{
+  color:white;
+  text-decoration:none;
+  font-size:larger;
+  background-color:black;
   padding: 5px;
-  border-radius: 20px;
+  border-radius:20px;
+}
+.book-button:hover{
+  background-color:white;
+  color:black;
+  border:1px solid black;
 }
 
-.book-button:hover {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
-}
-
-.cinemaLink {
+.cinemaLink{
   text-decoration: none;
 }

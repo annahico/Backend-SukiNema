@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit{
   displayedColumns:string[]=['id', 'name', 'email','Role', 'operations'];
 
   constructor(private service:AppServiceService,private router:Router,private dialogRef:MatDialog,private toastr:ToastrService){
+
   }
 
 
@@ -22,10 +23,13 @@ export class UsersComponent implements OnInit{
   role:any;
 
   ngOnInit(): void {
+
     console.log('users componenent ngOnInit says');
+
     this.service.sendingUsersRole.subscribe((data)=>{
       this.role=data.role;
       console.log('users componenent ngOnInit emitter says', this.role);
+
       if(this.role!=1){
         this.router.navigate(['/']);
       }
@@ -47,7 +51,9 @@ export class UsersComponent implements OnInit{
 
   onDelete(id:any){
     this.dialogRef.open(DeletepopupComponent);
-        this.service.sendingDeleteMessage.subscribe((response)=>{
+    
+    this.service.sendingDeleteMessage.subscribe((response)=>{
+
       if(response.message=='Yes'){
         this.service.deleteUser(id).subscribe((response:any)=>{
           console.log(response.message);
@@ -60,5 +66,11 @@ export class UsersComponent implements OnInit{
         this.dialogRef.closeAll();
       }
     })
-      }
+    
+  }
+ 
+
+
+ 
+
 }

@@ -1,49 +1,65 @@
 <div class="page">
+
   <div class="heading">
     <h1>All shows</h1>
-    <a class="addnewmovie" routerLink="/shows/addnewshow"><button mat-raised-button color="accent">Add a new
-        show</button></a>
+    <a class="addnewmovie" routerLink="/shows/addnewshow"><button mat-raised-button color="accent">Add a new show</button></a>
   </div>
+
+
   <div class="shows-container" *ngIf="shows!=undefined else elseBlock">
-    <table mat-table [dataSource]="shows" class="mat-elevation-z8">
+    
+    <table mat-table [dataSource]="shows" class="mat-elevation-z8">  
+  
       <ng-container matColumnDef="moviename">
         <th mat-header-cell *matHeaderCellDef> Movie Name </th>
         <td mat-cell *matCellDef="let element"> {{element.moviename}} </td>
       </ng-container>
+  
+  
       <ng-container matColumnDef="cinemaname">
         <th mat-header-cell *matHeaderCellDef> Cinema Name </th>
         <td mat-cell *matCellDef="let element"> {{element.cinemaname}} </td>
       </ng-container>
+
       <ng-container matColumnDef="screen">
         <th mat-header-cell *matHeaderCellDef> Screen Number </th>
         <td mat-cell *matCellDef="let element"> {{element.screen}} </td>
       </ng-container>
+
       <ng-container matColumnDef="startscreeningdate">
         <th mat-header-cell *matHeaderCellDef>Start Screening Date </th>
         <td mat-cell *matCellDef="let element"> {{element.startscreeningdate}} </td>
       </ng-container>
+      
+      
       <ng-container matColumnDef="endscreeningdate">
         <th mat-header-cell *matHeaderCellDef>End Screening Date </th>
         <td mat-cell *matCellDef="let element"> {{element.endscreeningdate}} </td>
       </ng-container>
+
       <ng-container matColumnDef="screeningtime">
         <th mat-header-cell *matHeaderCellDef>Screening Time </th>
         <td mat-cell *matCellDef="let element"> {{element.screeningtime}} </td>
       </ng-container>
+
       <ng-container matColumnDef="operations">
         <th mat-header-cell *matHeaderCellDef> Operations </th>
         <td mat-cell *matCellDef="let element">
-          <a class="operations" routerLink="/shows/editshow/{{element.id}}"> <button mat-raised-button
-              color="primary">Edit</button> </a>
+          <a class="operations" routerLink="/shows/editshow/{{element.id}}"> <button mat-raised-button color="primary">Edit</button> </a>
           <button class="operations" mat-raised-button color="warn" (click)="onDelete(element.id)">Delete</button>
         </td>
       </ng-container>
+  
+  
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    
   </div>
+
   <ng-template #elseBlock>
-    <h1>No Records are Found</h1>
+    <h1>OOPS! No Records are Found</h1>
   </ng-template>
 
 </div>
+

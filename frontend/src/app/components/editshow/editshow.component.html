@@ -8,27 +8,25 @@
       <div>
         <label for="cinema"> <span class="mandatory">*</span> Select Cinema</label> <br>
         <select class="inp-dropdown" formControlName="cinemaname">
-          <option value="cinesa">Cinesa</option>
-          <option value="yelmo">Yelmo</option>
+          <option value="movie city">movie city</option>
+          <option value="blackbox">blackbox</option>
         </select>
       </div>
-      <span *ngIf="form.controls['cinemaname'].touched && form.controls['cinemaname'].invalid">cinema name is not
-        valid</span>
+      <span *ngIf="form.controls['cinemaname'].touched && form.controls['cinemaname'].invalid">cinema name is not valid</span>
 
       <br><br>
-
+            
       <div>
         <label for="movie"> <span class="mandatory">*</span> Select Movie</label> <br>
-        <select class="inp-dropdown" formControlName="moviename">
-          <option value="film1">Film 1</option>
-          <option value="film2">Film 2</option>
+        <select class="inp-dropdown"  formControlName="moviename">
+          <option value="raone">raone</option>
+          <option value="aksar">aksar</option>
         </select>
       </div>
-      <span *ngIf="form.controls['moviename'].touched && form.controls['moviename'].invalid">movie name is not
-        valid</span>
+      <span *ngIf="form.controls['moviename'].touched && form.controls['moviename'].invalid">movie name is not valid</span>
 
       <br><br>
-
+            
       <div>
         <label for="screen"> <span class="mandatory">*</span> Select screen</label> <br>
         <select class="inp-dropdown" formControlName="screen">
@@ -37,40 +35,36 @@
           <option value="screen2">screen 3</option>
         </select>
       </div>
-      <span *ngIf="form.controls['screen'].touched && form.controls['screen'].invalid">screen number is is not
-        valid</span>
+      <span *ngIf="form.controls['screen'].touched && form.controls['screen'].invalid">screen number is is not valid</span>
 
-      <br><br>
+      <br><br>      
 
       <div>
         <label> <span class="mandatory">*</span> Start Screening Date</label> <br>
         <input class="inp-field" type="date" formControlName="startscreeningdate">
       </div>
-      <span *ngIf="form.controls['startscreeningdate'].touched && form.controls['startscreeningdate'].invalid">start
-        screening date is not valid</span>
+      <span *ngIf="form.controls['startscreeningdate'].touched && form.controls['startscreeningdate'].invalid">start screening date is not valid</span>
 
       <br><br>
-
+      
       <div>
         <label> <span class="mandatory">*</span> End Screening Date</label> <br>
         <input class="inp-field" type="date" formControlName="endscreeningdate">
       </div>
-      <span *ngIf="form.controls['endscreeningdate'].touched && form.controls['endscreeningdate'].invalid">end screening
-        date is not valid</span>
+      <span *ngIf="form.controls['endscreeningdate'].touched && form.controls['endscreeningdate'].invalid">end screening date is not valid</span>
 
-      <br><br>
-
+      <br><br>    
+            
       <div>
         <label for="screeningtime"> <span class="mandatory">*</span> Screening time</label> <br>
         <select multiple class="inp-multiple-times" formControlName="screeningtime">
-          <option value="15pm">15 pm</option>
-          <option value="18pm">18 pm</option>
-          <option value="21pm">21 pm</option>
+          <option value="3pm">3pm</option>
+          <option value="9pm">9pm</option>
+          <option value="6pm">6pm</option>
         </select>
       </div>
-      <span *ngIf="form.controls['screeningtime'].touched && form.controls['screeningtime'].invalid">screening time is
-        not valid</span>
-
+      <span *ngIf="form.controls['screeningtime'].touched && form.controls['screeningtime'].invalid">screening time is not valid</span>
+      
       <br><br>
 
       <div>
@@ -82,3 +76,9 @@
   </div>
 
 </div>
+
+
+
+
+
+

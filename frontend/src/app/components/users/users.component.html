@@ -1,38 +1,58 @@
+
 <div *ngIf="role==1" class="heading">
-  <h1 class="heading-name">All Users</h1>
+    <h1  class="heading-name">All Users</h1>
 </div>
+
 <div *ngIf="role==1" class="main">
+
   <div class="records" *ngIf="usersList.length else elseBlock">
     <table mat-table [dataSource]="usersList" class="mat-elevation-z8">
+  
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> Id </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
+  
+      
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"> 
           <a class="usernameLink" routerLink="/users/bookinghistory/{{element.id}}">{{element.name}}</a>
         </td>
       </ng-container>
+  
+      
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
       </ng-container>
+  
+      
       <ng-container matColumnDef="Role">
         <th mat-header-cell *matHeaderCellDef> Role </th>
         <td mat-cell *matCellDef="let element"> {{element.role}} </td>
       </ng-container>
+
       <ng-container matColumnDef="operations">
         <th mat-header-cell *matHeaderCellDef> Operations </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-raised-button color="warn" (click)="onDelete(element.id)">Delete</button>
+          <!-- <a class="operations" routerLink="/users/edituser/{{element.id}}"><button  mat-raised-button color="primary">Edit</button> </a> -->
+          <button mat-raised-button color="warn" (click)="onDelete(element.id)" >Delete</button> 
         </td>
       </ng-container>
+  
+  
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-  <ng-template #elseBlock>
-    <h1>No Records are Found</h1>
+
+  <ng-template  #elseBlock>
+    <h1>OOPS!   No Records are Found</h1>
   </ng-template>
-</div>
+
+</div>  
+
+
+
+

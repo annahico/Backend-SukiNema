@@ -15,11 +15,13 @@ export class ShowsComponent implements OnInit{
   displayedColumns:string[]=[ 'moviename','cinemaname','screen', 'startscreeningdate','endscreeningdate','screeningtime', 'operations'];
 
   constructor(private service:AppServiceService,private router:Router, private dailogRef:MatDialog,private toastr:ToastrService){
+
   }
 
   shows:any;
 
   ngOnInit(): void {
+
     this.service.sendingShowsRole.subscribe((data:any)=>{
       if(data.role!=1){
         this.router.navigate(['/']);
@@ -28,6 +30,7 @@ export class ShowsComponent implements OnInit{
         this.service.getAllShows().subscribe((response:any)=>{
           this.shows=response.result;
           console.log(this.shows);
+
           for(let i=0;i<this.shows.length;i++){
             this.service.getCinema(this.shows[i].cinemaid).subscribe((response:any)=>{
               this.shows[i].cinemaname=response.result.name;
@@ -39,13 +42,19 @@ export class ShowsComponent implements OnInit{
             console.log(this.shows[i]);
           }
         })
+
       }
     })
+
     this.service.showsRole();
+
   }
+
+
 
   onDelete(showid:any){
     this.dailogRef.open(ShowdeletepopupComponent);
+
     this.service.sendingDeleteShowMessage.subscribe((data:any)=>{
 
       if(data.message=='Yes'){
@@ -59,6 +68,7 @@ export class ShowsComponent implements OnInit{
           }
         })
       }
+
       this.dailogRef.closeAll();
       this.service.showsRole();
     })

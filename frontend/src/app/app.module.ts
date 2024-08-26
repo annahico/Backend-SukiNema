@@ -1,29 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
-
-
-import { MatButtonModule } from '@angular/material/button';
-// import {MatButtonToggleModule} from '@angular/material/button-toggle';
-// import {MatIconModule} from '@angular/material/icon';
-// import {MatBadgeModule} from '@angular/material/badge';
-// import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-// import {MatProgressBarModule} from '@angular/material/progress-bar';
-// import {MatToolbarModule} from '@angular/material/toolbar';
-// import {MatSidenavModule} from '@angular/material/sidenav';
-// import {MatMenuModule} from '@angular/material/menu';
-// import {MatListModule} from '@angular/material/list'
-// import { MatDividerModule } from '@angular/material/divider';
-// import {MatGridListModule} from '@angular/material/grid-list';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-
 import { AppComponent } from './app.component';
-
 import { AddnewcinemaComponent } from './components/addnewcinema/addnewcinema.component';
 import { AddnewmovieComponent } from './components/addnewmovie/addnewmovie.component';
 import { AddnewshowComponent } from './components/addnewshow/addnewshow.component';
@@ -45,15 +30,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NopageComponent } from './components/nopage/nopage.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SelectcinemaComponent } from './components/selectcinema/selectcinema.component';
+import { SheetbookingComponent } from './components/sheetbooking/sheetbooking.component';
 import { ShowdeletepopupComponent } from './components/showdeletepopup/showdeletepopup.component';
 import { ShowsComponent } from './components/shows/shows.component';
 import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
 import { UsersComponent } from './components/users/users.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +50,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     CinemasComponent,
     MoviedetailsComponent,
     SelectcinemaComponent,
-    // SheetbookingComponent,
+    SheetbookingComponent,
     UsersComponent,
     DeletepopupComponent,
     CinemadeletepopupComponent,
@@ -100,18 +82,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     }),
 
     MatButtonModule,
-    // MatButtonToggleModule,
-    // MatIconModule,
-    // MatBadgeModule,
-    // MatProgressSpinnerModule,
-    // MatProgressBarModule,
-    // MatToolbarModule,
-    // MatSidenavModule,
-    // MatMenuModule,
-    // MatListModule,
-    // MatDividerModule,
-    // MatGridListModule,
-    MatTableModule,
+        MatTableModule,
     MatDialogModule
   ],
   providers: [],

@@ -1,9 +1,9 @@
-.page {
+.page{
   min-height: 100vh;
   padding: 20px;
-  background-color: rgb(188, 143, 178);
+  background-color:darkseagreen;
 }
 
-.book-btn {
+.book-btn{
   text-decoration: none;
 }

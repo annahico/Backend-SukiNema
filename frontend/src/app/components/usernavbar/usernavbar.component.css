@@ -1,24 +1,23 @@
-.navbar {
+.navbar{
   background-color: black;
   display: flex;
-  justify-content: left;
+  justify-content:left;
   height: 30px;
   width: 100%;
   align-items: center;
 }
 
-.items {
+.items{
   list-style-type: none;
-  color: rgb(255, 240, 250);
+  color: aliceblue;
   font-size: larger;
 }
-
-.items:hover {
-  color: rgb(255, 0, 128);
+.items:hover{
+  color: orange;
   border-bottom: 2px solid white;
 }
 
-.links {
+.links{
   text-decoration: none;
   margin-left: 5px;
   cursor: pointer;

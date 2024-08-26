@@ -1,5 +1,6 @@
+
 /* user movies */
-.movie-container {
+.movie-container{
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
@@ -8,7 +9,7 @@
   background-color: rgb(54, 53, 53);
 }
 
-.movie-card {
+.movie-card{
   width: 250px;
   height: 350px;
   text-align: center;
@@ -16,58 +17,65 @@
   margin: 10px;
 }
 
-.poster {
-  width: 100%;
+.poster{
+  width:100%;
   height: 90%;
   border-radius: 10px;
 }
 
-.title {
-  color: rgb(255, 0, 157);
+.title{
+  color:red;
   margin-bottom: 0%;
   font-size: larger;
 }
-
-.link {
+.link{
   text-decoration: none;
 }
+
+
+
 
 /* admin tables */
 
-.heading {
+.heading{
   display: flex;
   justify-content: space-between;
 }
-
-.heading-name {
+.heading-name{
   margin: 15px;
 }
-
-.addnewmovie {
+.addnewmovie{
   margin: 15px;
   text-decoration: none;
 }
 
-.main {
+
+
+.main{
   display: flex;
   justify-content: space-evenly;
 }
 
-.records {
+.records{
   width: 70%;
-  min-width: fit-content;
+  min-width:fit-content;
 }
 
-.operations {
+.operations{
   margin-left: 4px;
   text-decoration: none;
 }
 
-.movieposter {
+
+.movieposter{
   height: 40px;
   width: 40px;
 }
 
-.movieLink {
+.movieLink{
   text-decoration: none;
 }
+
+
+
+

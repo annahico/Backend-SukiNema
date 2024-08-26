@@ -1,34 +1,34 @@
-.page {
+.page{
   min-height: 100vh;
   padding: 20px;
 }
 
-.shows-container {
+.shows-container{
   margin-top: 30px;
 }
 
-.shows {
+.shows{
   margin-top: 15px;
   width: 50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   border: 1px solid black;
   align-items: center;
   border-radius: 8px;
   padding: 8px;
 }
 
-.movie {
+.movie{
   height: 120px;
   width: 190px;
   text-align: center;
-  background-color: rgb(255, 0, 119);
+  background-color: darkorange;
   border-radius: 8px;
   padding: 4px 0px;
   color: black;
 }
 
-.book-btn {
+.book-btn{
   color: white;
   text-decoration: none;
   font-size: larger;
@@ -36,13 +36,12 @@
   padding: 5px;
   border-radius: 20px;
 }
-
 .book-btn:hover {
   background-color: white;
   color: black;
   border: 1px solid black;
 }
 
-.movieLink {
+.movieLink{
   text-decoration: none;
 }
