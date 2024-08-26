@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AppServiceService } from '../../services/app-service.service';
+import { AppServiceService } from '../../../app/services/app-service.service';
 import { CinemadeletepopupComponent } from '../cinemadeletepopup/cinemadeletepopup.component';
 
 @Component({

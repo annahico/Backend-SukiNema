@@ -1,0 +1,12 @@
+<div class="page">
+
+  <div *ngIf="role==-1">
+    <h1>Not login</h1>
+  </div>
+
+  <div *ngIf="role!=-1">
+    <app-usernavbar></app-usernavbar>
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

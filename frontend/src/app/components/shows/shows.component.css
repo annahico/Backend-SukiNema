@@ -1,0 +1,21 @@
+.page{
+  padding: 20px;
+}
+
+.heading{
+  display: flex;
+  justify-content: space-between;
+}
+
+.shows-container{
+  margin-top: 30px;
+}
+
+.operations{
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.addnewmovie{
+  text-decoration: none;
+}

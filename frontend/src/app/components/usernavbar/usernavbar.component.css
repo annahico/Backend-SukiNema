@@ -1,0 +1,25 @@
+.navbar {
+  background-color: black;
+  display: flex;
+  justify-content: left;
+  height: 30px;
+  width: 100%;
+  align-items: center;
+}
+
+.items {
+  list-style-type: none;
+  color: rgb(255, 240, 250);
+  font-size: larger;
+}
+
+.items:hover {
+  color: rgb(255, 0, 128);
+  border-bottom: 2px solid white;
+}
+
+.links {
+  text-decoration: none;
+  margin-left: 5px;
+  cursor: pointer;
+}

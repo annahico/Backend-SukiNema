@@ -1,7 +1,7 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppServiceService } from 'src/app/services/app-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { AppServiceService } from '../../../app/services/app-service.service';
 
 @Component({
   selector: 'app-addnewmovie',

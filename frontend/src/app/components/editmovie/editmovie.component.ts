@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AppServiceService } from '../../services/app-service.service';
+import { AppServiceService } from '../../../app/services/app-service.service';
 
 @Component({
   selector: 'app-editmovie',
