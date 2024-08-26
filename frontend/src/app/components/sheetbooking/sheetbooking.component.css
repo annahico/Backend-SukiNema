@@ -1,0 +1,32 @@
+.show-container {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.show {
+  max-width: max-content;
+}
+
+.availability {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sheet-container {
+  border: 1px solid black;
+  width: 50%;
+  min-width: max-content;
+  text-align: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.eyes {
+  margin-top: 30px;
+}
+
+.screen {
+  background-color: black;
+}

@@ -1,0 +1,26 @@
+<div class="page">
+  <h1>Booking {{ movie.name }},  {{movie.descrp}}</h1>
+
+  <div *ngFor="let show of shows" class="showstable">
+    
+    <a routerLink="/cinema/details/{{show.cinemaid}}" class="cinemaLink">
+      <div class="cinema">
+        <h1>{{ show.cinemaname }}</h1>
+        {{ show.cinemaaddress }}<br />
+        {{ show.cinemacity }}
+      </div>
+    </a>
+
+    <div>{{ show.screeningtime }}</div>
+
+    <div>{{ show.screeningdate }}</div>
+
+    <div>amount 100 /-</div>
+
+    <div>
+      <a class="book-button" routerLink="/showsbooking/{{movieid}}/{{show.cinemaid}}/{{show.id}}">Book the sheet</a>
+    </div>
+
+  </div>
+</div>
+

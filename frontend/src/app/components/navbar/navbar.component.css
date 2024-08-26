@@ -1,0 +1,50 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(204, 16, 119);
+  align-items: center;
+
+  position: sticky;
+  top: 0%;
+}
+
+.logo {
+  margin-top: 12px;
+  margin-left: 20px;
+}
+
+.logo>a>h1 {
+  color: black;
+  transition: .6s;
+}
+
+.logo>a>h1:hover {
+  color: white;
+  transition: .6s;
+}
+
+.logo>a {
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+}
+
+.menu>a>li {
+  margin-right: 20px;
+  font-size: larger;
+  color: black;
+  transition: .6s;
+}
+
+.menu>a>li:hover {
+  color: white;
+  transition: .6s;
+}
+
+.menu>a {
+  cursor: pointer;
+  text-decoration: none;
+}

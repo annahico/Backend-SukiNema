@@ -1,0 +1,13 @@
+<div class="page">
+
+  <img *ngIf="movie!=undefined" src="{{movie.movieposter}}">
+  
+  <h2>{{movie?.name}} </h2>
+  <h4>{{movie?.descrp}} </h4>
+  <h5>Released Date {{movie?.releaseddate}}</h5>
+  
+  <a class="book-btn" *ngIf="movie!=undefined" routerLink="/movies/{{movie.id}}/shows">
+    <button mat-stroked-button color="primary">Bookticket</button>
+  </a>
+
+</div>

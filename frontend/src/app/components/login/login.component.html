@@ -1,0 +1,36 @@
+<div class="page">
+
+  <div class="formContainer">
+    <div class="logo">
+      <h1>User login</h1>
+    </div>
+  
+    <div>
+
+      <form #loginform="ngForm" (ngSubmit)="onSubmit(loginform)">
+        <div>
+          <label for="email"> <span class="star">*</span> Email </label> <br>
+          <input class="inp-field" type="email" name="email" placeholder="Email" ngModel #email="ngModel" required email>
+        </div>
+        <span class="warning" *ngIf="email.invalid && email.touched">Email is not valid</span>
+
+        <br><br>
+        
+        <div>
+          <label for="password"> <span class="star">*</span> Password </label> <br>
+          <input class="inp-field" type="password" name="password" placeholder="password" ngModel #password="ngModel" required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$">
+        </div>
+        <span class="warning" *ngIf="password.invalid && password.touched">Password is not valid</span><br>
+        <a routerLink="/forgotpassword"><span>Forgot password ?</span></a>
+
+        <br><br>
+        
+        <div>
+          <button [disabled]="loginform.invalid" mat-raised-button color="primary" class="submitBtn"> Submit </button>
+        </div>
+      </form> 
+  
+    </div>
+  </div>
+
+</div>

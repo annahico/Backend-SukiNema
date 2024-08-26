@@ -1,0 +1,70 @@
+<div *ngIf="role==0" class="movie-container">
+
+  <div *ngFor="let movie of moviesList">
+
+    <a class='link' routerLink="/movies/details/{{movie.id}}">
+      <div class="movie-card">
+        <img src="{{movie.movieposter}}" class="poster">
+        <p class="title">{{movie.name}}</p>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+<div *ngIf="role==1" class="heading">
+  <h1 class="heading-name">All Movies</h1>
+  <a class="addnewmovie" routerLink="/movies/addnewmovie"> <button mat-raised-button color="accent">Add new Movie
+    </button> </a>
+</div>
+
+<div *ngIf="role==1" class="main">
+
+  <div class="records" *ngIf="moviesList.length else elseBlock">
+    <table mat-table [dataSource]="moviesList" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="movieposter">
+        <th mat-header-cell *matHeaderCellDef> Movie Poster </th>
+        <td mat-cell *matCellDef="let element"> <img class="movieposter" src="{{element.movieposter}}"> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element">
+          <a class="movieLink" routerLink="/movies/details/{{element.id}}"> {{element.name}} </a>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="releaseddate">
+        <th mat-header-cell *matHeaderCellDef> ReleasedDate </th>
+        <td mat-cell *matCellDef="let element"> {{element.releaseddate}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="descrp">
+        <th mat-header-cell *matHeaderCellDef> Descrption </th>
+        <td mat-cell *matCellDef="let element"> {{element.descrp}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="operations">
+        <th mat-header-cell *matHeaderCellDef> Operations </th>
+        <td mat-cell *matCellDef="let element">
+          <a class="operations" routerLink="/movies/editmovie/{{element.id}}"> <button mat-raised-button
+              color="primary">Edit</button> </a>
+          <button class="operations" mat-raised-button color="warn" (click)="onDelete(element.id)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <ng-template #elseBlock>
+    <h1>OOPS! No Records are Found</h1>
+  </ng-template>
+
+
+</div>

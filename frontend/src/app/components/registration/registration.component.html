@@ -1,0 +1,39 @@
+<div class="page">
+  <div class="formContainer">
+    <div class="formLogo">
+      <h1>Register</h1>
+    </div>
+
+    <div class="formContent">
+      <form [formGroup]="registerform"  (ngSubmit)="onSubmit()">
+        <div>
+          <label for="name"> <span class="star">*</span> Name</label><br>
+          <input class="inp-field" type="text" placeholder="Name" formControlName="name" >
+        </div>
+        <span *ngIf="registerform.controls['name'].invalid && registerform.controls['name'].touched" class="warning"> Name is not valid</span>
+
+        <br><br>
+
+        <div>
+          <label for="email"><span class="star">*</span>Email</label><br>
+          <input class="inp-field" type="email" placeholder="Email" formControlName="email">
+        </div>
+        <span *ngIf="registerform.controls['email'].invalid && registerform.controls['email'].touched" class="warning"> Email is not valid</span>
+        
+        <br><br>
+        
+        <div>
+          <label for="password"><span class="star">*</span>Password</label><br>
+          <input class="inp-field" type="password" placeholder="Password" formControlName="password">
+        </div>
+        <span *ngIf="registerform.controls['password'].invalid && registerform.controls['password'].touched" class="warning"> Password is not valid</span>
+
+        <br><br>
+
+        <div>
+          <button type="submit" [disabled]="registerform.invalid" class="submitBtn" mat-raised-button color="primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
