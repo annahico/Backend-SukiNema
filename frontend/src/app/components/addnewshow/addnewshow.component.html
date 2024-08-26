@@ -1,0 +1,75 @@
+<div class="page">
+
+  <div class="form container">
+    <h1>Adding a new show</h1>
+
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+      <div>
+        <label for="cinemaname"> <span class="mandatory">*</span> Select Cinema</label> <br>
+        <select class="inp-dropdown" name="cinemaname" ngModel #cinemaname="ngModel" required (click)="onClick(cinemaname)">
+          <option *ngFor="let cinema of cinemas" value="{{cinema.name}}">{{cinema.name}}</option>  
+        </select>
+      </div>
+      <span *ngIf="cinemaname.touched && cinemaname.invalid" class="warning">cinema-name is not valid</span>
+
+      <br><br>
+
+      <div>
+        <label for="moviename"> <span class="mandatory">*</span> Select Movie</label> <br>
+        <select class="inp-dropdown" name="moviename" ngModel #moviename="ngModel" required>
+          <option *ngFor="let movie of movies" value="{{movie.name}}">{{movie.name}}</option>
+        </select>
+      </div>
+      <span *ngIf="moviename.touched && moviename.invalid" class="warning">movie-name is not valid</span>
+
+      <br><br>
+
+      <div>
+        <label for="screen"> <span class="mandatory">*</span> Select screen</label> <br>
+        <select class="inp-dropdown" name="screen" ngModel #screen="ngModel" required>
+          <option *ngFor="let n of screensInSelectedCinema; index as i" value="{{i+1}}">screen {{i+1}}</option>
+        </select>
+      </div>
+      <span *ngIf="screen.touched && screen.invalid" class="warning">screen is not valid</span>
+
+      <br><br>
+
+      <div>
+        <label> <span class="mandatory">*</span> Start Screening Date</label> <br>
+        <input class="inp-field" type="date" name="startscreeningdate" ngModel #startscreeningdate="ngModel" required>
+      </div>
+      <span *ngIf="startscreeningdate.touched && startscreeningdate.invalid" class="warning">start screening date is not
+        valid</span>
+
+      <br><br>
+
+
+      <div>
+        <label> <span class="mandatory">*</span> End Screening Date</label> <br>
+        <input class="inp-field" type="date" name="endscreeningdate" ngModel #endscreeningdate="ngModel" required>
+      </div>
+      <span *ngIf="endscreeningdate.touched && endscreeningdate.invalid" class="warning">End screening date is not
+        valid</span>
+
+      <br><br>
+
+      <div>
+        <label for="screeningtime"> <span class="mandatory">*</span> Screening time</label> <br>
+        <select multiple class="inp-multiple-times" name="screeningtime" ngModel #screeningtime="ngModel" required>
+          <option *ngFor="let time of showsavailabilitytimeInSelectedCinema" value="{{time}}">{{time}}</option>
+        </select>
+      </div>
+      <span *ngIf="screeningtime.touched && screeningtime.invalid" class="warning">screening time is is not valid</span>
+
+      <br><br>
+
+      <div>
+        <a class="link" routerLink="/shows"> <button mat-stroked-button color="warn" type="button">cancel</button> </a>
+        <button [disabled]="form.invalid" mat-raised-button color="primary" type="submit">Submit</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

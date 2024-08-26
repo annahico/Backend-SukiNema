@@ -1,0 +1,52 @@
+<div class="page">
+  <div class="userDetails" *ngIf="user!=undefined">
+    <h1>Name:- {{user.name}} </h1>
+    <h2>Email:- {{user.email}} </h2>
+    <h3>Role:- {{role}} </h3>
+  </div>
+
+  <hr>
+  <h1>Booking History.......</h1>
+  <div class="bookinghistory">
+    <table mat-table [dataSource]="bookings" class="mat-elevation-z8">
+    
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element">  {{element.id}}  </td>
+      </ng-container>
+    
+    
+      <ng-container matColumnDef="userid">
+        <th mat-header-cell *matHeaderCellDef> userid </th>
+        <td mat-cell *matCellDef="let element"> {{element.userid}} </td>
+      </ng-container>
+    
+    
+      <ng-container matColumnDef="movieid">
+        <th mat-header-cell *matHeaderCellDef> movieid </th>
+        <td mat-cell *matCellDef="let element"> {{element.movieid}} </td>
+      </ng-container>
+    
+    
+      <ng-container matColumnDef="cinemaid">
+        <th mat-header-cell *matHeaderCellDef> cinemaid </th>
+        <td mat-cell *matCellDef="let element"> {{element.cinemaid}} </td>
+      </ng-container>
+    
+    
+      <ng-container matColumnDef="showid">
+        <th mat-header-cell *matHeaderCellDef> showid </th>
+        <td mat-cell *matCellDef="let element"> {{element.showid}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="seatnumber">
+        <th mat-header-cell *matHeaderCellDef> seatnumber </th>
+        <td mat-cell *matCellDef="let element"> {{element.seatnumber}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+</div>

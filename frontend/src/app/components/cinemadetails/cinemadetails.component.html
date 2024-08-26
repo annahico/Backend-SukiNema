@@ -1,0 +1,40 @@
+<div class="page">
+  <div class="cinemadetails">
+    <h1>Name:- {{cinema.name}} </h1>
+    <h2>Address:- {{cinema.address}} </h2>
+    <h3>Contact:- {{cinema.contactnumber}} </h3>
+    <h4>Website:- {{cinema.website}} </h4>
+    <h4>No. of Screens:- {{cinema.screens}} </h4>
+    <h4>Shows Availability time:- {{cinema.showsavailabilitytime}} </h4>
+  </div>
+
+  <hr>
+  
+  <div class="shows-container">
+    <h1>Movies going on.....</h1>
+
+    <div  class="shows" *ngFor="let show of shows">
+
+      <a routerLink="/movies/details/{{show.movieid}}" class="movieLink">
+        <div class="movie">
+          <h1>{{show.moviename}}</h1>
+          {{show.moviedescrp}} <br>
+          {{show.moviereleaseddate}}
+        </div>
+      </a>
+
+      <div>{{show.screeningtime}} </div>
+
+      <div>{{show.screeningdate}} </div>
+
+      <div>
+        <a class="book-btn" routerLink="/showsbooking/{{show.movieid}}/{{cinema.id}}/{{show.id}}">Book the sheet</a>
+      </div>
+
+    </div>  
+
+  </div>
+
+
+
+</div>
