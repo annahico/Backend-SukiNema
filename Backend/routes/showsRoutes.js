@@ -8,154 +8,175 @@ const { tokenChecking } = require('../middlewares/checkingPermissions.js');
 
 router.use(tokenChecking);
 
-//getting a show by movieid
+// Get shows by movie ID
 router.get('/getshows/:movieid', async (req, res) => {
   try {
-    console.log(req.body);
-    const result = await knex.withSchema('cinemabackend').table('cinemas_movies').andWhere('isactive', true).andWhere('movieid', req.params.movieid);
-    console.log(result);
+    const result = await knex.withSchema('cinemabackend')
+      .table('cinemas_movies')
+      .where('isactive', true)
+      .andWhere('movieid', req.params.movieid);
     res.json({ shows: result });
+  } catch (error) {
+    console.error('Error fetching shows by movie ID:', error);
+    res.status(400).json({ error: 'Failed to fetch shows' });
   }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
-  }
-})
+});
 
-//getting all shows
+// Get all shows
 router.get('/getshows', async (req, res) => {
   try {
-    console.log('getting all shows');
-    const result = await knex.withSchema('cinemabackend').table('cinemas_movies').andWhere('isactive', true);
-    console.log(result);
-    res.json({ result: result });
+    const result = await knex.withSchema('cinemabackend')
+      .table('cinemas_movies')
+      .where('isactive', true);
+    res.json({ shows: result });
+  } catch (error) {
+    console.error('Error fetching all shows:', error);
+    res.status(400).json({ error: 'Failed to fetch shows' });
   }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
-  }
-})
+});
 
-//getting a show by showid
+// Get a specific show by show ID
 router.get('/getshow/:id', async (req, res) => {
   try {
-    console.log(req.body);
-    let result = await knex.withSchema('cinemabackend').table('cinemas_movies').andWhere('isactive', true).andWhere('id', req.params.id);
+    let result = await knex.withSchema('cinemabackend')
+      .table('cinemas_movies')
+      .where('isactive', true)
+      .andWhere('id', req.params.id);
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: 'Show not found' });
+    }
+
     result = result[0];
-    console.log(result);
     result.screeningtime = result.screeningtime.split(',');
-    movieArr = await knex.withSchema('cinemabackend').table('moviesdetails').where('id', result.movieid);
-    cinemaArr = await knex.withSchema('cinemabackend').table('cinemasdetails').where('id', result.cinemaid);
-    result.moviename = movieArr[0].name;
-    result.cinemaname = cinemaArr[0].name;
 
-    console.log(result);
+    const movie = await knex.withSchema('cinemabackend').table('moviesdetails').where('id', result.movieid).first();
+    const cinema = await knex.withSchema('cinemabackend').table('cinemasdetails').where('id', result.cinemaid).first();
+
+    result.moviename = movie ? movie.name : null;
+    result.cinemaname = cinema ? cinema.name : null;
+
     res.json({ show: result });
+  } catch (error) {
+    console.error('Error fetching show by ID:', error);
+    res.status(400).json({ error: 'Failed to fetch show' });
   }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
-  }
-})
+});
 
-//getting a show by cinemaid
+// Get shows by cinema ID
 router.get('/getshowsbycinemaid/:cinemaid', async (req, res) => {
   try {
-    const result = await knex.withSchema('cinemabackend').table('cinemas_movies').where('cinemaid', req.params.cinemaid);
-    console.log(result);
-    res.json({ result: result });
+    const result = await knex.withSchema('cinemabackend')
+      .table('cinemas_movies')
+      .where('cinemaid', req.params.cinemaid)
+      .andWhere('isactive', true);
+    res.json({ shows: result });
+  } catch (error) {
+    console.error('Error fetching shows by cinema ID:', error);
+    res.status(400).json({ error: 'Failed to fetch shows' });
   }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
-  }
-})
+});
 
-//adding a show
-router.post('/addshow', async (req, res) => {
+// Add a new show
+router.post('/addshow', [
+  body('screeningtime').notEmpty(),
+  body('startscreeningdate').notEmpty(),
+  body('endscreeningdate').notEmpty(),
+  body('moviename').notEmpty(),
+  body('cinemaname').notEmpty(),
+  body('screen').notEmpty()
+], async (req, res) => {
   try {
-    console.log('adding a new-show');
-    const err = validationResult(req);
-    if (!err.isEmpty() || !req.body.screeningtime || !req.body.startscreeningdate || !req.body.endscreeningdate || !req.body.moviename || !req.body.cinemaname || !req.body.screen) {
-      res.status(400).json({ error: 'error: please enter proper details' });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: 'Please enter proper details' });
     }
-    console.log(req.body);
-    moviesArr = await knex.withSchema('cinemabackend').table('moviesdetails').where('name', req.body.moviename);
-    cinemasArr = await knex.withSchema('cinemabackend').table('cinemasdetails').where('name', req.body.cinemaname);
-    obj = {
+
+    const moviesArr = await knex.withSchema('cinemabackend').table('moviesdetails').where('name', req.body.moviename);
+    const cinemasArr = await knex.withSchema('cinemabackend').table('cinemasdetails').where('name', req.body.cinemaname);
+
+    if (moviesArr.length === 0 || cinemasArr.length === 0) {
+      return res.status(400).json({ error: 'Movie or Cinema not found' });
+    }
+
+    const showData = {
       movieid: moviesArr[0].id,
       cinemaid: cinemasArr[0].id,
       screen: req.body.screen,
       startscreeningdate: req.body.startscreeningdate,
       endscreeningdate: req.body.endscreeningdate,
       screeningtime: req.body.screeningtime.toString()
-    }
-    console.log(obj);
-    await knex.withSchema('cinemabackend').table('cinemas_movies').insert(obj);
-    res.json({ message: 'success: show is added successfully' });
-  }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
+    };
+
+    await knex.withSchema('cinemabackend').table('cinemas_movies').insert(showData);
+    res.json({ message: 'Show added successfully' });
+  } catch (error) {
+    console.error('Error adding new show:', error);
+    res.status(400).json({ error: 'Failed to add show' });
   }
 });
 
-//updating a show
-router.put('/editshow/:id', async (req, res) => {
+// Update a show
+router.put('/editshow/:id', [
+  body('screeningtime').notEmpty(),
+  body('startscreeningdate').notEmpty(),
+  body('endscreeningdate').notEmpty(),
+  body('moviename').notEmpty(),
+  body('cinemaname').notEmpty(),
+  body('screen').notEmpty()
+], async (req, res) => {
   try {
-    console.log('editing a show');
-    const err = validationResult(req);
-    if (!err.isEmpty() || !req.body.screeningtime || !req.body.startscreeningdate || !req.body.endscreeningdate || !req.body.moviename || !req.body.cinemaname || !req.body.screen) {
-      res.status(400).json({ error: 'error: please enter proper details' });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: 'Please enter proper details' });
     }
-    console.log(req.body);
 
-    moviesArr = await knex.withSchema('cinemabackend').table('moviesdetails').where('name', req.body.moviename);
-    cinemasArr = await knex.withSchema('cinemabackend').table('cinemasdetails').where('name', req.body.cinemaname);
-    const result = await knex.withSchema('cinemabackend').table('cinemas_movies').where('id', req.params.id).update(
-      {
-        movieid: moviesArr[0].id,
-        cinemaid: cinemasArr[0].id,
-        screen: req.body.screen,
-        startscreeningdate: req.body.startscreeningdate,
-        endscreeningdate: req.body.endscreeningdate,
-        screeningtime: req.body.screeningtime.toString()
-      }
-    )
+    const moviesArr = await knex.withSchema('cinemabackend').table('moviesdetails').where('name', req.body.moviename);
+    const cinemasArr = await knex.withSchema('cinemabackend').table('cinemasdetails').where('name', req.body.cinemaname);
+
+    if (moviesArr.length === 0 || cinemasArr.length === 0) {
+      return res.status(400).json({ error: 'Movie or Cinema not found' });
+    }
+
+    const updateData = {
+      movieid: moviesArr[0].id,
+      cinemaid: cinemasArr[0].id,
+      screen: req.body.screen,
+      startscreeningdate: req.body.startscreeningdate,
+      endscreeningdate: req.body.endscreeningdate,
+      screeningtime: req.body.screeningtime.toString()
+    };
+
+    const result = await knex.withSchema('cinemabackend').table('cinemas_movies').where('id', req.params.id).update(updateData);
+
     if (result) {
-      res.json({ message: 'updated successfully' });
+      res.json({ message: 'Show updated successfully' });
+    } else {
+      res.status(404).json({ error: 'Show not found' });
     }
-    else {
-      res.json({ error: 'show is not found' });
-    }
-  }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
+  } catch (error) {
+    console.error('Error updating show:', error);
+    res.status(400).json({ error: 'Failed to update show' });
   }
 });
 
-//deleting a show
+// Delete a show (soft delete)
 router.delete('/deleteshow/:id', async (req, res) => {
   try {
-    console.log('deleting a particular show');
-    const result = await knex.withSchema('cinemabackend').table('cinemas_movies').where('id', req.params.id).update({ isactive: false });
+    const result = await knex.withSchema('cinemabackend')
+      .table('cinemas_movies')
+      .where('id', req.params.id)
+      .update({ isactive: false });
+
     if (result) {
-      res.json({ message: 'deleted successfully' });
+      res.json({ message: 'Show deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Show not found' });
     }
-    else {
-      res.json({ error: 'show is not found' });
-    }
+  } catch (error) {
+    console.error('Error deleting show:', error);
+    res.status(400).json({ error: 'Failed to delete show' });
   }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
-  }
-})
+});
 
 module.exports = router;
-
-
-
-
-

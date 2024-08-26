@@ -8,110 +8,101 @@ const { tokenChecking } = require('../middlewares/checkingPermissions.js');
 
 router.use(tokenChecking);
 
-//creating routes
-//displaying all the movies 
+// Route to get all active movies
 router.get('/getmovies', async (req, res) => {
   try {
     const result = await knex.withSchema('cinemabackend').table('moviesdetails').where('isactive', true);
     console.log(result);
     res.json({ moviesList: result });
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(400).json({ error: 'Failed to get movies' });
   }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
-  }
-})
+});
 
-//displaying a particular movie
+// Route to get a particular movie by ID
 router.get('/getmovie/:id', async (req, res) => {
   try {
-    console.log('listing a particular movie details');
+    console.log('Listing details of a particular movie');
     const result = await knex.withSchema('cinemabackend').table('moviesdetails').where('id', req.params.id);
     console.log(result[0]);
     res.json({ result: result[0] });
-  }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(400).json({ error: 'Failed to get movie' });
   }
 });
 
+// Route to get movie ID by movie name
 router.get('/getmovieidbyname/:moviename', async (req, res) => {
   try {
-    console.log('getting a movieid by  movie name');
+    console.log('Getting movie ID by movie name');
     const result = await knex.withSchema('cinemabackend').table('moviesdetails').where('name', req.params.moviename);
     console.log(result[0]);
     res.json({ result: result[0].id });
-  }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(400).json({ error: 'Failed to get movie ID' });
   }
 });
 
-//adding a new movie
+// Route to add a new movie
 router.post('/addmovie', body('releaseddate').isDate(), async (req, res) => {
   try {
-    const err = validationResult(req);
-    if (!err.isEmpty() || !req.body.name || !req.body.descrp) {
-      res.status(400).json({ message: 'fields are not proper' });
+    const errors = validationResult(req);
+    if (!errors.isEmpty() || !req.body.name || !req.body.descrp) {
+      return res.status(400).json({ error: 'Fields are not proper' });
     }
 
     await knex.withSchema('cinemabackend').table('moviesdetails').insert(req.body);
-    res.json({ message: 'movie is inserted successfully' });
-  }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
+    res.json({ message: 'Movie inserted successfully' });
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(400).json({ error: 'Failed to add movie' });
   }
 });
 
-//updating a existing movie
+// Route to update an existing movie
 router.put('/editmovie/:id', body('releaseddate').isDate(), async (req, res) => {
   try {
-    const err = validationResult(req);
-    if (!err.isEmpty() || !req.body.name || !req.body.descrp) {
-      res.status(400).json({ message: 'fields are not proper' });
+    const errors = validationResult(req);
+    if (!errors.isEmpty() || !req.body.name || !req.body.descrp) {
+      return res.status(400).json({ error: 'Fields are not proper' });
     }
 
-    const result = await knex.withSchema('cinemabackend').table('moviesdetails').where('id', req.params.id).update(
-      {
-        name: req.body.name,
-        descrp: req.body.descrp,
-        releaseddate: req.body.releaseddate,
-        movieposter: req.body.movieposter
-      }
-    )
+    const result = await knex.withSchema('cinemabackend').table('moviesdetails').where('id', req.params.id).update({
+      name: req.body.name,
+      descrp: req.body.descrp,
+      releaseddate: req.body.releaseddate,
+      movieposter: req.body.movieposter
+    });
 
     if (result) {
-      res.json({ message: 'success: updated successfully' });
+      res.json({ message: 'Movie updated successfully' });
+    } else {
+      res.json({ error: 'Movie not found' });
     }
-    else {
-      res.json({ message: 'error: movie not found' });
-    }
-  }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(400).json({ error: 'Failed to update movie' });
   }
 });
 
-//deleting a existing movie
+// Route to delete an existing movie (soft delete)
 router.delete('/deletemovie/:id', async (req, res) => {
   try {
-    console.log('deleting a particular movie');
-    const result = await knex.withSchema('cinemabackend').table('moviesdetails').andWhere('id', req.params.id).andWhere('isactive', true).update({ isactive: false });
+    console.log('Deleting a particular movie');
+    const result = await knex.withSchema('cinemabackend').table('moviesdetails').where('id', req.params.id).andWhere('isactive', true).update({ isactive: false });
+
     if (result) {
-      res.json({ message: 'success: deleted successfully' });
+      res.json({ message: 'Movie deleted successfully' });
+    } else {
+      res.json({ error: 'Movie not found' });
     }
-    else {
-      res.json({ message: 'error: movie not found' });
-    }
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(400).json({ error: 'Failed to delete movie' });
   }
-  catch (error) {
-    console.log('catch' + error);
-    res.status(400);
-  }
-})
+});
 
 module.exports = router;

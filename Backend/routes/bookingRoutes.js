@@ -8,52 +8,56 @@ const { tokenChecking, adminAndSelfUserAccess } = require('../middlewares/checki
 
 router.use(tokenChecking);
 
-//a new booking
-router.post('/booktickets/:email', body('userid').isInt(), body('cinemaid').isInt(), body('movieid').isInt(), body('showid').isInt(), body('amount').isInt(), async (req, res) => {
-  try {
-    console.log('booking tickets backend');
-    const err = validationResult(req);
-    if (!err.isEmpty()) {
-      res.status(400).json('please enter proper details');
-    }
-    await knex.withSchema('cinemabackend').table('bookings').insert(req.body);
-    console.log(req.body);
-
-    let details = {
-      from: "youremail@email.com",
-      to: req.params.email,
-      subject: "cinema ticket booked succesfully",
-      // text: `BookingId:- ${bookingid}  \n  CustomerName:- ${customer.name}  \n  CustomerEmail:- ${customer.email}  \n  MovieName:- ${movie.name}  \n  ReleasedDate:- ${movie.releaseddate}  \n  CinemaName:- ${cinema.name}  \n  CinemaMobileNumber:- ${cinema.mobile}  \n  CinemaAddress:- ${cinema.address}  \n  City:- ${cinema.city}  \n  ScrreningTime:- ${req.body.screeningtime}  \n  SeatNumber:- ${req.body.seatnumber}  \n  BookedAmount:- ${req.body.amount}  \n PLEASE DON't SHARE THIS MOVIE TICKET WITH UNKNOWN PERSON  \n Thankyou for Ticket Booking `
-      text: "ticket success"
-    }
-
-    //sending mail notification
-    const { configMailTransporter } = require('../config.js');
-
-    configMailTransporter.sendMail(details, (err) => {
-      if (err) {
-        console.log("it has an error", err);
-        res.json(err);
+// Route for a new ticket booking
+router.post('/booktickets/:email',
+  body('userid').isInt(),
+  body('cinemaid').isInt(),
+  body('movieid').isInt(),
+  body('showid').isInt(),
+  body('amount').isInt(),
+  async (req, res) => {
+    try {
+      console.log('Booking tickets backend');
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json('Please enter proper details');
       }
-      else {
-        console.log('email has sent');
-        res.json({ message: 'success: email has sent' });
-      }
-    });
 
-  }
-  catch (error) {
-    console.log(error);
-    res.status(400);
-  }
-});
+      await knex.withSchema('cinemabackend').table('bookings').insert(req.body);
+      console.log(req.body);
 
+      const details = {
+        from: "youremail@email.com",
+        to: req.params.email,
+        subject: "Cinema ticket booked successfully",
+        text: "Ticket success"
+      };
+
+      // Sending mail notification
+      const { configMailTransporter } = require('../config.js');
+
+      configMailTransporter.sendMail(details, (err) => {
+        if (err) {
+          console.log("Error sending email", err);
+          return res.json(err);
+        }
+        console.log('Email has been sent');
+        res.json({ message: 'Success: Email has been sent' });
+      });
+
+    } catch (error) {
+      console.log(error);
+      res.status(400);
+    }
+  }
+);
+
+// Route to get booking history by user ID
 router.get('/getbookinghistory/:userid', adminAndSelfUserAccess, async (req, res) => {
   try {
     const result = await knex.withSchema('cinemabackend').table('bookings').where('userid', req.params.userid);
     res.json({ result: result });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(400);
   }

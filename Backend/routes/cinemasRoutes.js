@@ -8,123 +8,115 @@ const { tokenChecking } = require('../middlewares/checkingPermissions.js');
 
 router.use(tokenChecking);
 
-//getting all cinemas
+// Route to get all cinemas
 router.get('/getcinemas', async (req, res) => {
   try {
-    console.log('listing all the cinemas details');
+    console.log('Listing all the cinema details');
     const result = await knex.withSchema('cinemabackend').table('cinemasdetails').where('isactive', true);
-    res.json({ result: result });
-  }
-  catch (error) {
+    res.json({ result });
+  } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).json({ error: 'Failed to get cinemas' });
   }
 });
 
-//getting a particular cinema
+// Route to get a particular cinema by ID
 router.get('/getcinema/:id', async (req, res) => {
   try {
-    console.log('listing a particular cinema details');
+    console.log('Listing details of a particular cinema');
     const result = await knex.withSchema('cinemabackend').table('cinemasdetails').where('id', req.params.id);
     res.json({ result: result[0] });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).json({ error: 'Failed to get cinema' });
   }
 });
 
-//getting cinemaid by cinema name
+// Route to get cinema ID by cinema name
 router.get('/getcinemaidbyname/:cinemaname', async (req, res) => {
   try {
-    console.log('sending cinema id by cinema name');
+    console.log('Getting cinema ID by cinema name');
     const result = await knex.withSchema('cinemabackend').table('cinemasdetails').where('name', req.params.cinemaname);
     res.json({ result: result[0].id });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).json({ error: 'Failed to get cinema ID' });
   }
 });
 
-//getting cinema by cinema name
+// Route to get cinema by cinema name
 router.get('/getcinemabyname/:cinemaname', async (req, res) => {
   try {
-    console.log('sending cinema  by cinema name');
+    console.log('Getting cinema details by cinema name');
     const result = await knex.withSchema('cinemabackend').table('cinemasdetails').where('name', req.params.cinemaname);
     res.json({ result: result[0] });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).json({ error: 'Failed to get cinema details' });
   }
 });
 
-//adding a new cinema
+// Route to add a new cinema
 router.post('/addcinema', async (req, res) => {
   try {
-    console.log('adding a new cinema');
-    const err = validationResult(req);
-    if (!err.isEmpty() || !req.body.name || !req.body.address || !req.body.contactnumber || !req.body.screens || !req.body.showsavailabilitytime) {
-      res.status(400).json({ error: 'please enter correct and proper details' });
+    console.log('Adding a new cinema');
+    const errors = validationResult(req);
+    if (!errors.isEmpty() || !req.body.name || !req.body.address || !req.body.contactnumber || !req.body.screens || !req.body.showsavailabilitytime) {
+      return res.status(400).json({ error: 'Please enter correct and proper details' });
     }
 
     await knex.withSchema('cinemabackend').table('cinemasdetails').insert(req.body);
-    res.json({ message: 'cinema added succesfully' });
-  }
-  catch (error) {
+    res.json({ message: 'Cinema added successfully' });
+  } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).json({ error: 'Failed to add cinema' });
   }
 });
 
-//updating a particular cinema
+// Route to update a particular cinema
 router.put('/editcinema/:id', async (req, res) => {
   try {
-    console.log('updating a cinema details');
-    const err = validationResult(req);
-    if (!err.isEmpty() || !req.body.name || !req.body.address || !req.body.contactnumber || !req.body.screens || !req.body.showsavailabilitytime) {
-      res.status(400).json({ error: 'please enter correct and proper details' });
+    console.log('Updating cinema details');
+    const errors = validationResult(req);
+    if (!errors.isEmpty() || !req.body.name || !req.body.address || !req.body.contactnumber || !req.body.screens || !req.body.showsavailabilitytime) {
+      return res.status(400).json({ error: 'Please enter correct and proper details' });
     }
 
-    const result = await knex.withSchema('cinemabackend').table('cinemasdetails').where('id', req.params.id).update(
-      {
-        name: req.body.name,
-        address: req.body.address,
-        contactnumber: req.body.contactnumber,
-        website: req.body.website,
-        screens: req.body.screens,
-        showsavailabilitytime: req.body.showsavailabilitytime
-      }
-    )
+    const result = await knex.withSchema('cinemabackend').table('cinemasdetails').where('id', req.params.id).update({
+      name: req.body.name,
+      address: req.body.address,
+      contactnumber: req.body.contactnumber,
+      website: req.body.website,
+      screens: req.body.screens,
+      showsavailabilitytime: req.body.showsavailabilitytime
+    });
+
     if (result) {
-      res.json({ message: 'success: cinema details updated succesfully' });
+      res.json({ message: 'Success: Cinema details updated successfully' });
+    } else {
+      res.json({ message: 'Error: Record not found' });
     }
-    else {
-      res.json({ message: 'error: record not found' });
-    }
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).json({ error: 'Failed to update cinema details' });
   }
 });
 
-//deleting a particualar cinema
+// Route to delete a particular cinema (soft delete)
 router.delete('/delete/:id', async (req, res) => {
   try {
-    console.log('deleting a particular cinema');
+    console.log('Deleting a particular cinema');
     const result = await knex.withSchema('cinemabackend').table('cinemasdetails').where('id', req.params.id).update({ isactive: false });
+
     if (result) {
-      res.json({ message: 'deleted successfully' });
+      res.json({ message: 'Deleted successfully' });
+    } else {
+      res.json({ error: 'Cinema not found' });
     }
-    else {
-      res.json({ error: 'cinema not found' });
-    }
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
+    res.status(400).json({ error: 'Failed to delete cinema' });
   }
-})
+});
 
 module.exports = router;
