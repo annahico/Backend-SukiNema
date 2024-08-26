@@ -6,7 +6,7 @@ const configDb = {
     connection: {
       host: process.env.DB_HOST || '127.0.0.1',
       port: process.env.DB_PORT || 9874,
-      user: process.env.DB_USER || 'postgres',
+      user: process.env.DB_USER || 'demo-user',
       password: process.env.DB_PASSWORD || 'password@123',
       database: process.env.DB_NAME || 'demo',
     },
