@@ -1,24 +1,24 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
 
-// Importa las rutas
-const userRoutes = require('./routes/userRoutes');
-const bookingRoutes = require('./routes/bookingRoutes');
-const cinemaRoutes = require('./routes/cinemaRoutes');
-const movieRoutes = require('./routes/movieRoutes');
-const showRoutes = require('./routes/showRoutes');
-
-// Middleware
 app.use(express.json());
+app.get('/getData', (req, res) => {
+  res.json('nodejs message recieved');
+})
 
-// Usa las rutas
-app.use('/api/users', userRoutes);
-app.use('/api/bookings', bookingRoutes);
-app.use('/api/cinemas', cinemaRoutes);
-app.use('/api/movies', movieRoutes);
-app.use('/api/shows', showRoutes);
+//requiring routes from seperate files
+const authRoutes = require('./routes/authRoutes');
+const cinemasRoutes = require('./routes/cinemasRoutes');
+const moviesRoutes = require('./routes/moviesRoutes');
+const showsRoutes = require('./routes/showsRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.use('/auth', authRoutes);
+app.use('/cinemas', cinemasRoutes);
+app.use('/movies', moviesRoutes);
+app.use('/shows', showsRoutes);
+app.use('/booking', bookingRoutes);
+
+app.listen(4000, () => {
+  console.log('server started at 4000 port');
+})

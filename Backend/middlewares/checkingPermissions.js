@@ -1,63 +1,66 @@
-// Conexión a la base de datos PostgreSQL
 const { configDb } = require('../config.js');
 const knexConfig = configDb.knexPGConfig;
 const knex = require('knex')(knexConfig);
 
 let record = null;
 
-// Middleware de verificación de token
-const tokenChecking = async (req, res, next) => {
+//token checking middleware
+const tokenChecking = (async (req, res, next) => {
   try {
     console.log('token checking middleware');
     console.log(req.headers, req.body);
 
     if (!req.headers.authorization) {
-      return res.status(401).json({ error: 'No token received' });
+      res.json({ error: 'No token recieved' });
     }
-
-    const token = req.headers.authorization.split(' ')[1];
-
+    let temp = req.headers.authorization.split(' ');
+    const token = temp[1];
     record = await knex.withSchema('cinemabackend').table('usersdetails').where('jwt', token);
-
     if (!record.length) {
-      return res.status(401).json({ error: 'Please login first and then try again' });
+      res.json({ error: 'please login first and then try again' });
     }
-
-    record = record[0];
-    next();
-  } catch (error) {
-    console.log('catch', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-// Middleware de verificación de admin
-const adminChecking = async (req, res, next) => {
-  try {
-    if (record && record.role === true) {
+    else {
+      record = record[0];
       next();
-    } else {
-      console.log('Users have no permissions to access admin portals');
-      res.status(403).json({ error: 'Users have no permissions to access admin portals' });
     }
-  } catch (error) {
-    console.log('catch', error);
-    res.status(500).json({ error: 'Internal server error' });
   }
-};
+  catch (error) {
+    console.log('catch', error);
+    res.status(404);
+  }
+});
 
-// Middleware de acceso de admin y usuario propio
-const adminAndSelfUserAccess = async (req, res, next) => {
+//admin checking middleware
+const adminChecking = (async (req, res, next) => {
   try {
-    if (record && (record.role === true || record.id === req.params.userid)) {
+    if (record.role == true) {
       next();
-    } else {
-      res.status(403).json({ error: 'Users have no permissions to access other users portals' });
     }
-  } catch (error) {
-    console.log('catch', error);
-    res.status(500).json({ error: 'Internal server error' });
+    else {
+      console.log('users have No permissions to access admin portals');
+      res.json({ error: 'error:  users have No permissions to access admin portals' });
+    }
   }
-};
+  catch (error) {
+    res.json({ error: error });
+    // res.status(404);
+  }
+});
+
+//admin and self user middleware
+const adminAndSelfUserAccess = (async (req, res, next) => {
+  try {
+    if (record.role == true || record.id == req.params.userid) {
+      next();
+    }
+    else {
+      res.json({ error: 'users have No permissions to access other users portals' });
+    }
+  }
+  catch (error) {
+    console.log('catch', error);
+    res.status(404);
+  }
+});
 
 module.exports = { tokenChecking, adminChecking, adminAndSelfUserAccess };

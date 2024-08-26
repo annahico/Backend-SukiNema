@@ -6,7 +6,7 @@ const configDb = {
       host: '127.0.0.1',
       port: 5432,
       user: 'postgres',
-      password: 'Manubansal@444',
+      password: 'password@123',
       database: 'demo'
     }
   }
@@ -20,8 +20,8 @@ const configMailTransporter = nodemailer.createTransport({
   port: 465,
   host: 'smtp.gmail.com',
   auth: {
-    user: "manubansal.cse23@jecrc.ac.in",
-    pass: "Manubansal@444"
+    user: "youremail@email.com",
+    pass: "password@123"
   }
 });
 

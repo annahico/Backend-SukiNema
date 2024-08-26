@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
-//to validate the data
 const { body, validationResult } = require('express-validator');
-
-//database pg connection
 const { configDb } = require('../config.js');
 const knexConfig = configDb.knexPGConfig;
 const knex = require('knex')(knexConfig);
-
-//requiring middleware
 const { tokenChecking, adminAndSelfUserAccess } = require('../middlewares/checkingPermissions.js');
+
 router.use(tokenChecking);
 
 //a new booking
@@ -25,7 +20,7 @@ router.post('/booktickets/:email', body('userid').isInt(), body('cinemaid').isIn
     console.log(req.body);
 
     let details = {
-      from: "manubansal.cse23@jecrc.ac.in",
+      from: "youremail@email.com",
       to: req.params.email,
       subject: "cinema ticket booked succesfully",
       // text: `BookingId:- ${bookingid}  \n  CustomerName:- ${customer.name}  \n  CustomerEmail:- ${customer.email}  \n  MovieName:- ${movie.name}  \n  ReleasedDate:- ${movie.releaseddate}  \n  CinemaName:- ${cinema.name}  \n  CinemaMobileNumber:- ${cinema.mobile}  \n  CinemaAddress:- ${cinema.address}  \n  City:- ${cinema.city}  \n  ScrreningTime:- ${req.body.screeningtime}  \n  SeatNumber:- ${req.body.seatnumber}  \n  BookedAmount:- ${req.body.amount}  \n PLEASE DON't SHARE THIS MOVIE TICKET WITH UNKNOWN PERSON  \n Thankyou for Ticket Booking `

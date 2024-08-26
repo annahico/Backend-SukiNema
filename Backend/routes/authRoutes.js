@@ -1,10 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-//to validate the incoming data like: email,password,etc.
 const { body, validationResult } = require('express-validator');
-
-//database pg connection
 const { configDb } = require('../config.js');
 const knexConfig = configDb.knexPGConfig;
 const knex = require('knex')(knexConfig);
@@ -20,14 +16,14 @@ let encryptionMethod = 'AES-256-CBC'; //this is our encryption method
 let key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substring(0, 32); //create key
 let iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substring(0, 16); //same create iv using 'sha512'
 
-//call the encrypt like-> encryptString('manu bansal', encryptionMethod, key, iv)
+//call the encrypt like-> encryptString('name', encryptionMethod, key, iv)
 function encryptString(plain_text, encryptionMethod, secret, iv) {
   let encryptor = Crypto.createCipheriv(encryptionMethod, secret, iv); //encrypt using AES-256-CBC
   let aes_encrypted = encryptor.update(plain_text, 'utf8', 'base64') + encryptor.final('base64'); //convert to base64
   return Buffer.from(aes_encrypted).toString('base64');  //return encrypted string
 }
 
-//call the decrypt like-> decryptString('manu bansal', encryptionMethod, key, iv)
+//call the decrypt like-> decryptString('name', encryptionMethod, key, iv)
 function decryptString(encryptedString, encryptionMethod, secret, iv) {
   const buff = Buffer.from(encryptedString, 'base64'); //get base64 string
   encryptedString = buff.toString('utf-8'); // convert to string
@@ -116,7 +112,7 @@ router.post('/sendemail', body('email').isEmail(), async (req, res) => {
       //sending mail notification
 
       let details = {
-        from: "manubansal.cse23@jecrc.ac.in",
+        from: "youremail@email.com",
         to: req.body.email,
         subject: "your forgotten password from BookMyShow",
         text: `Your forgotten password is  :- ${decryptString(record[0].password, encryptionMethod, key, iv)} `

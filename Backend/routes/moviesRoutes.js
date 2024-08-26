@@ -5,6 +5,7 @@ const knexConfig = configDb.knexPGConfig;
 const knex = require('knex')(knexConfig);
 const { body, validationResult } = require('express-validator');
 const { tokenChecking } = require('../middlewares/checkingPermissions.js');
+
 router.use(tokenChecking);
 
 //creating routes
